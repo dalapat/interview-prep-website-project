@@ -1,0 +1,22 @@
+2014/09/06 06:21:58 [error] [exception.CException] exception 'CException' with message 'Alias "booster.widgets.TbButton" is invalid. Make sure it points to an existing directory or file.' in E:\Yii\framework\YiiBase.php:347
+Stack trace:
+#0 E:\Yii\framework\web\CWidgetFactory.php(146): YiiBase::import('booster.widgets...', true)
+#1 E:\Yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(SiteController), 'booster.widgets...', Array)
+#2 E:\Yii\framework\web\CBaseController.php(172): CBaseController->createWidget('booster.widgets...', Array)
+#3 E:\xampp\htdocs\Testapp\protected\views\site\index.php(27): CBaseController->widget('booster.widgets...', Array)
+#4 E:\Yii\framework\web\CBaseController.php(126): require('E:\\xampp\\htdocs...')
+#5 E:\Yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#6 E:\Yii\framework\web\CController.php(869): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#7 E:\Yii\framework\web\CController.php(782): CController->renderPartial('index', NULL, true)
+#8 E:\xampp\htdocs\Testapp\protected\controllers\SiteController.php(32): CController->render('index')
+#9 E:\Yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#10 E:\Yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 E:\Yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 E:\Yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 E:\Yii\framework\web\CWebApplication.php(282): CController->run('')
+#14 E:\Yii\framework\web\CWebApplication.php(141): CWebApplication->runController('')
+#15 E:\Yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 E:\xampp\htdocs\Testapp\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/Testapp/
+---
