@@ -1,0 +1,8 @@
+MySQL tables:
+CREATE TABLE user (
+     id INT NOT NULL AUTO_INCREMENT,
+     username VARCHAR(30) NOT NULL,
+     password VARCHAR (128) NOT NULL,
+     email VARCHAR (128) NOT NULL,
+     PRIMARY KEY (id)
+) ENGINE=MyISAM;

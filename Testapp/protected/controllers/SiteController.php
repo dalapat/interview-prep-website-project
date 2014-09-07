@@ -29,7 +29,54 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$this->actionNext();
+	}
+	
+	public function actionNext()
+	{
+		$questionID;
+		$connection = Yii::app()->db;
+		$command = $connection->createCommand("CALL randomQuestion(:user_id, @out)");
+		$command->bindParam(":user_id",Yii::app()->user->getId(),PDO::PARAM_INT);
+		$command->execute();
+		
+		$questionID = Yii::app()->db->createCommand("select @out as result")->queryScalar();
+		Yii::app()->setGlobalState(Yii::app()->params['questionID'],$questionID);
+        $question=Question::model()->findByAttributes(array('id'=>$questionID));
+			
+		$this->render('index', array('question'=>$question));
+	}
+	
+	public function actionCorrect()
+	{	
+		/*$connection = Yii::app()->db;
+		$command = $connection->createCommand("INSERT INTO correct (userID, questionID) VALUES (:user_id, :question_id)");
+		$command->bindParam(":user_id",Yii::app()->user->getId(),PDO::PARAM_INT);
+		$command->bindParam(":question_id",$questionID,PDO::PARAM_INT);*/
+		
+		if(!Yii::app()->user->isGuest) {
+			$correct = new Correct;
+			$correct->userID = Yii::app()->user->getId();
+			$correct->questionID = Yii::app()->getGlobalState(Yii::app()->params['questionID']);
+			$correct->save();
+		}
+		
+		/*$sql = "INSERT INTO correct (userID, questionID) VALUES (:user_id, :question_id)";
+		$parameters = array(":user_id"=>Yii::app()->user->getId(), ":question_id"=>Yii::app()->getGlobalState(Yii::app()->params['questionID']));
+		Yii::app()->db->createCommand($sql)->execute($parameters);*/
+		
+		
+		$this->actionNext();
+	}
+	
+	public function actionReset()
+	{
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'userID=:uID';
+		$criteria->params = array(':uID'=>Yii::app()->user->getId());		
+		Correct::model()->deleteAll($criteria);
+		
+		$this->actionNext();
 	}
 
 	/**
